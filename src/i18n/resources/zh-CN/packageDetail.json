@@ -49,6 +49,9 @@
   "page": {
     "notFound": "未找到包。"
   },
+  "translate": "翻译",
+  "translating": "翻译中...",
+  "showOriginal": "显示原文",
   "sidebar": {
     "updatedAt": "更新日期",
     "latestVersion": "最新版本",

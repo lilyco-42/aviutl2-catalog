@@ -21,6 +21,8 @@ export default function SettingsPage() {
     onPortableToggle,
     onPackageStateEnabledToggle,
     onToggleTheme,
+    onTranslatorApiKeyChange,
+    onTranslatorRegionChange,
     onPickAviutl2Root,
     onSave,
     onExport,
@@ -51,6 +53,8 @@ export default function SettingsPage() {
         onPackageStateEnabledToggle={onPackageStateEnabledToggle}
         onPickAviutl2Root={onPickAviutl2Root}
         onToggleTheme={onToggleTheme}
+        onTranslatorApiKeyChange={onTranslatorApiKeyChange}
+        onTranslatorRegionChange={onTranslatorRegionChange}
         onSave={onSave}
       />
       <DataManagementSection syncBusy={syncBusy} syncStatus={syncStatus} onExport={onExport} onImport={onImport} />

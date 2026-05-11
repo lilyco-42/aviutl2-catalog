@@ -49,6 +49,9 @@
   "page": {
     "notFound": "パッケージが見つかりませんでした。"
   },
+  "translate": "翻訳",
+  "translating": "翻訳中...",
+  "showOriginal": "原文を表示",
   "sidebar": {
     "updatedAt": "更新日",
     "latestVersion": "最新バージョン",

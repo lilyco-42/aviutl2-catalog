@@ -23,6 +23,8 @@ export default function AppSettingsSection({
   onPackageStateEnabledToggle,
   onPickAviutl2Root,
   onToggleTheme,
+  onTranslatorApiKeyChange,
+  onTranslatorRegionChange,
   onSave,
 }: AppSettingsSectionProps) {
   const { t } = useTranslation(['settings', 'common']);
@@ -113,6 +115,36 @@ export default function AppSettingsSection({
           checked={packageStateEnabled}
           onToggle={() => onPackageStateEnabledToggle(!packageStateEnabled)}
         />
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium" htmlFor="settings-translator-key">
+            Microsoft Translator API Key
+          </label>
+          <div className={text.mutedXs}>用于翻译包说明内容。在 Azure Portal 创建 Translator 资源后获取。</div>
+          <Input
+            id="settings-translator-key"
+            name="translatorApiKey"
+            value={form.translatorApiKey}
+            onChange={onTranslatorApiKeyChange}
+            className="flex-1 cursor-text select-text"
+            placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            type="password"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium" htmlFor="settings-translator-region">
+            Region
+          </label>
+          <Input
+            id="settings-translator-region"
+            name="translatorRegion"
+            value={form.translatorRegion}
+            onChange={onTranslatorRegionChange}
+            className="flex-1 cursor-text select-text"
+            placeholder="eastasia"
+          />
+        </div>
 
         <div className={cn(layout.inlineGap2, 'flex-wrap justify-end border-slate-100 dark:border-slate-800')}>
           <Button

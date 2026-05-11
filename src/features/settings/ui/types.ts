@@ -12,6 +12,8 @@ export interface AppSettingsSectionProps {
   onPackageStateEnabledToggle: (nextEnabled: boolean) => void;
   onPickAviutl2Root: () => void;
   onToggleTheme: () => void;
+  onTranslatorApiKeyChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onTranslatorRegionChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onSave: () => void;
 }
 

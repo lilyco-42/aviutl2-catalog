@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import ImageCarousel from '../components/ImageCarousel';
 import type { PackageContentSectionProps } from '../types';
 import { surface, text } from '@/components/ui/_styles';
-import { TriangleAlert } from 'lucide-react';
+import { TriangleAlert, Languages } from 'lucide-react';
+import useDescriptionTranslate from '../hooks/useDescriptionTranslate';
 
 const sectionTitleClass = 'text-lg font-bold mb-2';
 
@@ -23,7 +24,9 @@ export default function PackageContentSection({
   onOpenLink,
 }: PackageContentSectionProps) {
   const { t } = useTranslation('package');
-  const descriptionMarkup = useMemo(() => ({ __html: descriptionHtml }), [descriptionHtml]);
+  const { translatedHtml, translating, error: translateError, translate, reset } = useDescriptionTranslate();
+  const displayHtml = translatedHtml || descriptionHtml;
+  const descriptionMarkup = useMemo(() => ({ __html: displayHtml }), [displayHtml]);
   const descriptionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -75,7 +78,18 @@ export default function PackageContentSection({
 
       {item.description ? (
         <section className={surface.cardSection}>
-          <h2 className="text-lg font-bold mb-3">{t('common:labels.description')}</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-bold">{t('common:labels.description')}</h2>
+            <button
+              type="button"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              disabled={translating || descriptionLoading}
+              onClick={() => (translatedHtml ? reset() : translate(descriptionHtml))}
+            >
+              <Languages className="w-4 h-4" />
+              {translating ? t('translating', '翻译中...') : translatedHtml ? t('showOriginal', '显示原文') : t('translate', '翻译')}
+            </button>
+          </div>
           {descriptionLoading ? (
             <p className={text.mutedSm}>{t('content.descriptionLoading')}</p>
           ) : (
@@ -85,6 +99,11 @@ export default function PackageContentSection({
               dangerouslySetInnerHTML={descriptionMarkup}
             />
           )}
+          {translateError ? (
+            <p className="error mt-3" role="alert">
+              {translateError}
+            </p>
+          ) : null}
           {descriptionError ? (
             <p className="error mt-3" role="alert">
               {descriptionError}

@@ -11,6 +11,8 @@ const persistedSettingsSchema = z.object({
   aviutl2_root: z.string().optional(),
   is_portable_mode: z.boolean().optional(),
   package_state_opt_out: z.boolean().optional(),
+  translator_api_key: z.string().optional(),
+  translator_region: z.string().optional(),
 });
 
 export function applyTheme(theme: string): void {
@@ -30,6 +32,8 @@ export function toSettingsForm(raw: unknown, fallbackLocale: SupportedUiLocale =
     aviutl2Root: String(source.aviutl2_root || ''),
     isPortableMode: Boolean(source.is_portable_mode),
     packageStateOptOut: Boolean(source.package_state_opt_out),
+    translatorApiKey: String(source.translator_api_key || ''),
+    translatorRegion: String(source.translator_region || 'eastasia'),
   };
 }
 

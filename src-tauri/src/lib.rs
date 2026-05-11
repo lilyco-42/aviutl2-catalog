@@ -148,6 +148,7 @@ pub fn run() {
             commands::system::launch_aviutl2,
             commands::system::run_installer_executable,
             commands::system::run_auo_setup,
+            commands::translate::translate_text,
             paths::complete_initial_setup,
             paths::update_settings,
             paths::set_package_update_paused,

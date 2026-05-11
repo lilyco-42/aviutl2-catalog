@@ -30,6 +30,8 @@ export default function useSettingsPage() {
     theme: DEFAULT_APP_THEME,
     locale: getCurrentUiLocale(i18n),
     packageStateOptOut: false,
+    translatorApiKey: '',
+    translatorRegion: 'eastasia',
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -76,6 +78,14 @@ export default function useSettingsPage() {
     });
   }, []);
 
+  const onTranslatorApiKeyChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, translatorApiKey: event.target.value }));
+  }, []);
+
+  const onTranslatorRegionChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, translatorRegion: event.target.value }));
+  }, []);
+
   const onPickAviutl2Root = useCallback(async () => {
     try {
       const selected = await tauriDialog.open({
@@ -106,6 +116,8 @@ export default function useSettingsPage() {
         theme: form.theme,
         locale: form.locale,
         packageStateOptOut: form.packageStateOptOut,
+        translatorApiKey: form.translatorApiKey.trim(),
+        translatorRegion: form.translatorRegion.trim() || 'eastasia',
       });
       if (!updated) throw new Error(t('errors.aviutl2Required'));
 
@@ -156,6 +168,8 @@ export default function useSettingsPage() {
     onPortableToggle,
     onPackageStateEnabledToggle,
     onToggleTheme,
+    onTranslatorApiKeyChange,
+    onTranslatorRegionChange,
     onPickAviutl2Root,
     onSave,
     onExport,

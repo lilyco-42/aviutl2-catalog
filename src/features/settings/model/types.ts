@@ -6,6 +6,8 @@ export interface SettingsFormState {
   theme: string;
   locale: SupportedUiLocale;
   packageStateOptOut: boolean;
+  translatorApiKey: string;
+  translatorRegion: string;
 }
 
 export type InstalledImportMap = Record<string, string>;

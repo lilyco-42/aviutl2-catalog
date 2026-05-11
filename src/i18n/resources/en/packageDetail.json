@@ -49,6 +49,9 @@
   "page": {
     "notFound": "Package not found."
   },
+  "translate": "Translate",
+  "translating": "Translating...",
+  "showOriginal": "Show original",
   "sidebar": {
     "updatedAt": "Updated",
     "latestVersion": "Latest version",

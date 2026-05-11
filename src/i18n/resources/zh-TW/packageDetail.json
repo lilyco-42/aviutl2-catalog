@@ -49,6 +49,9 @@
   "page": {
     "notFound": "找不到套件。"
   },
+  "translate": "翻譯",
+  "translating": "翻譯中...",
+  "showOriginal": "顯示原文",
   "sidebar": {
     "updatedAt": "更新日期",
     "latestVersion": "最新版本",

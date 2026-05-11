@@ -49,6 +49,9 @@
   "page": {
     "notFound": "패키지를 찾을 수 없습니다."
   },
+  "translate": "번역",
+  "translating": "번역 중...",
+  "showOriginal": "원문 보기",
   "sidebar": {
     "updatedAt": "업데이트일",
     "latestVersion": "최신 버전",
