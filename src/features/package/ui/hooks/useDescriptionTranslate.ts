@@ -13,20 +13,21 @@ export default function useDescriptionTranslate() {
     setTranslating(true);
     try {
       const settings = await getSettings();
-      const apiKey = settings.translator_api_key?.trim();
+      const apiKey = settings.translator_api_key?.trim() || '';
       const region = settings.translator_region?.trim() || 'eastasia';
-      if (!apiKey) {
-        setError('请先在设置中填入 Microsoft Translator API Key');
-        return;
-      }
       const result = await invoke<string>('translate_text', {
         text: html,
         apiKey,
         region,
         from: 'ja',
-        toList: ['zh-Hans'],
+        toList: ['zh-CN'],
       });
-      setTranslatedHtml(result);
+      // Wrap translated plain text in basic HTML
+      const wrapped = result
+        .split('\n\n')
+        .map((p) => `<p>${p}</p>`)
+        .join('\n');
+      setTranslatedHtml(wrapped);
     } catch (e: unknown) {
       setError(typeof e === 'string' ? e : (e as Error).message || '翻译失败');
     } finally {
