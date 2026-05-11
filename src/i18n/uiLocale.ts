@@ -39,7 +39,7 @@ export const UI_LOCALE_OPTIONS: readonly UiLocaleOption[] = SUPPORTED_UI_LOCALES
 
 export function normalizeUiLocale(value: unknown): SupportedUiLocale {
   const locale = typeof value === 'string' ? value.trim().toLowerCase() : '';
-  return matchUiLocale(locale) ?? 'ja';
+  return matchUiLocale(locale) ?? 'zh-CN';
 }
 
 export function getUiLocaleLabel(locale: string): string {

@@ -54,7 +54,7 @@
   },
   "done": {
     "title": "设置完成",
-    "description": "所有设置已完成",
+    "description": "所有设置已完成，祝您使用愉快！",
     "openApp": "打开 AviUtl2 目录"
   },
   "errors": {
@@ -62,8 +62,8 @@
     "saveFailed": "设置失败。",
     "installDirRequired": "请输入安装位置。",
     "setupFailed": "设置失败。",
-    "installFailed": "安装失败。",
-    "bulkInstallPartialFailed": "部分安装失败。",
+    "installFailed": "安装失败。AviUtl2 是否正在运行？",
+    "bulkInstallPartialFailed": "部分安装失败。AviUtl2 是否正在运行？",
     "generic": "发生错误。",
     "packageInfoPartialFailed": "无法获取部分包信息：{{ids}}",
     "requiredPackagesLoadFailed": "无法加载必需包信息。",

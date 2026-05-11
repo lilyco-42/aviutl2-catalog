@@ -25,11 +25,7 @@ function resolveInitialLanguage(settingsLocale: unknown): SupportedUiLocale {
   const saved = typeof settingsLocale === 'string' ? settingsLocale.trim() : '';
   if (saved) return normalizeUiLocale(saved);
 
-  const browserLocale =
-    navigator.languages?.map((value) => value.trim()).find(Boolean) ??
-    (typeof navigator.language === 'string' ? navigator.language.trim() : '');
-
-  return normalizeUiLocale(browserLocale || 'ja');
+  return 'zh-CN';
 }
 
 export async function initializeI18n(): Promise<typeof i18n> {
@@ -44,7 +40,7 @@ export async function initializeI18n(): Promise<typeof i18n> {
   await i18n.use(initReactI18next).init({
     resources,
     lng: resolveInitialLanguage(settingsLocale),
-    fallbackLng: 'ja',
+    fallbackLng: 'zh-CN',
     supportedLngs: [...SUPPORTED_UI_LOCALES],
     load: 'currentOnly',
     defaultNS,

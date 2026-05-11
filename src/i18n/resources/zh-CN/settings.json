@@ -79,7 +79,7 @@
   "appInfo": {
     "version": "版本",
     "license": "许可证",
-    "licenseBody": "本软件基于 MIT License 提供。许可证全文请参阅 LICENSE.txt。"
+    "licenseBody": "本软件基于 MIT 许可证提供。许可证全文请参阅 LICENSE.txt。"
   },
   "messages": {
     "saveSuccess": "设置已保存。"
