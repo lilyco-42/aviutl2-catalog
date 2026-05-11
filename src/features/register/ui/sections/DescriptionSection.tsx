@@ -5,9 +5,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Languages } from 'lucide-react';
 import * as tauriShell from '@tauri-apps/plugin-shell';
 import type { RegisterDescriptionSectionProps } from '../types';
+import useDescriptionTranslate from '@/features/package/ui/hooks/useDescriptionTranslate';
 import { action, layout, surface, text } from '@/components/ui/_styles';
 import { cn } from '@/lib/cn';
 
@@ -23,8 +24,10 @@ export default function RegisterDescriptionSection({
   onUpdatePackageField,
   onSetDescriptionTab,
 }: RegisterDescriptionSectionProps) {
-  const { t } = useTranslation(['register', 'common']);
-  const previewMarkup = useMemo(() => ({ __html: descriptionPreviewHtml }), [descriptionPreviewHtml]);
+  const { t } = useTranslation(['register', 'common', 'package']);
+  const { translatedHtml, translating, error: translateError, translate, reset: resetTranslate } = useDescriptionTranslate();
+  const displayHtml = translatedHtml || descriptionPreviewHtml;
+  const previewMarkup = useMemo(() => ({ __html: displayHtml }), [displayHtml]);
   const previewRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -181,11 +184,37 @@ export default function RegisterDescriptionSection({
               />
             )
           ) : (
-            <div
-              ref={previewRef}
-              className="prose prose-slate max-h-[400px] w-full max-w-none overflow-y-auto p-6 dark:prose-invert"
-              dangerouslySetInnerHTML={previewMarkup}
-            />
+            <div>
+              <div className="flex justify-end px-4 pt-3">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 disabled:opacity-50 transition-colors"
+                  disabled={translating || !packageForm.descriptionText}
+                  onClick={() =>
+                    translatedHtml
+                      ? resetTranslate()
+                      : translate(packageForm.descriptionText)
+                  }
+                >
+                  <Languages className="w-4 h-4" />
+                  {translating
+                    ? t('package:translating', '翻译中...')
+                    : translatedHtml
+                      ? t('package:showOriginal', '显示原文')
+                      : t('package:translate', '翻译')}
+                </button>
+              </div>
+              <div
+                ref={previewRef}
+                className="prose prose-slate max-h-[400px] w-full max-w-none overflow-y-auto px-6 pb-6 dark:prose-invert"
+                dangerouslySetInnerHTML={previewMarkup}
+              />
+              {translateError ? (
+                <p className="px-6 pb-3 text-sm text-red-500 dark:text-red-400" role="alert">
+                  {translateError}
+                </p>
+              ) : null}
+            </div>
           )}
         </div>
       </div>

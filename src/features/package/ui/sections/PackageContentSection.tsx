@@ -21,6 +21,8 @@ export default function PackageContentSection({
   descriptionHtml,
   descriptionLoading,
   descriptionError,
+  rawMarkdown,
+  markdownBaseUrl,
   onOpenLink,
 }: PackageContentSectionProps) {
   const { t } = useTranslation('package');
@@ -84,7 +86,7 @@ export default function PackageContentSection({
               type="button"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={translating || descriptionLoading}
-              onClick={() => (translatedHtml ? reset() : translate(descriptionHtml))}
+              onClick={() => (translatedHtml ? reset() : translate(rawMarkdown, markdownBaseUrl))}
             >
               <Languages className="w-4 h-4" />
               {translating ? t('translating', '翻译中...') : translatedHtml ? t('showOriginal', '显示原文') : t('translate', '翻译')}

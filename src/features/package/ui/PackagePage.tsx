@@ -145,6 +145,8 @@ export default function PackagePage() {
           descriptionHtml={description.descriptionHtml}
           descriptionLoading={description.descriptionLoading}
           descriptionError={description.descriptionError}
+          rawMarkdown={description.rawMarkdown}
+          markdownBaseUrl={MARKDOWN_BASE_URL}
           onOpenLink={handleOpenDescriptionLink}
         />
         <PackageSidebarSection

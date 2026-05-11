@@ -23,6 +23,8 @@ export interface PackageContentSectionProps {
   descriptionHtml: string;
   descriptionLoading: boolean;
   descriptionError: string;
+  rawMarkdown: string;
+  markdownBaseUrl?: string;
   onOpenLink: (href: string) => Promise<void>;
 }
 

@@ -13,6 +13,9 @@ export default function usePackageDescription({
   baseUrl,
 }: UsePackageDescriptionParams) {
   const { t } = useTranslation('package');
+  const [rawMarkdown, setRawMarkdown] = useState(() =>
+    isMarkdownUrl(descriptionUrlOrMarkdown) ? '' : descriptionUrlOrMarkdown,
+  );
   const [descriptionHtml, setDescriptionHtml] = useState(() =>
     isMarkdownUrl(descriptionUrlOrMarkdown) ? '' : renderMarkdown(descriptionUrlOrMarkdown),
   );
@@ -24,12 +27,14 @@ export default function usePackageDescription({
     const controller = new AbortController();
     const totalStart = performance.now();
     if (!descriptionUrlOrMarkdown) {
+      setRawMarkdown('');
       setDescriptionHtml('');
       setDescriptionError('');
       setDescriptionLoading(false);
       return undefined;
     }
     if (!isMarkdownUrl(descriptionUrlOrMarkdown)) {
+      setRawMarkdown(descriptionUrlOrMarkdown);
       setDescriptionHtml(renderMarkdown(descriptionUrlOrMarkdown));
       setDescriptionError('');
       setDescriptionLoading(false);
@@ -58,12 +63,14 @@ export default function usePackageDescription({
         });
         renderMs = performance.now() - renderStart;
         if (!cancelled) {
+          setRawMarkdown(markdownText);
           setDescriptionHtml(html);
         }
       } catch {
         if (controller.signal.aborted) return;
         if (!cancelled) {
           const message = t('descriptionErrors.loadFailed');
+          setRawMarkdown(message);
           setDescriptionHtml(renderMarkdown(message));
           setDescriptionError(message);
         }
@@ -87,6 +94,7 @@ export default function usePackageDescription({
   }, [baseUrl, descriptionUrlOrMarkdown, t]);
 
   return {
+    rawMarkdown,
     descriptionHtml,
     descriptionLoading,
     descriptionError,
