@@ -26,8 +26,9 @@ export default function PackageContentSection({
   onOpenLink,
 }: PackageContentSectionProps) {
   const { t } = useTranslation('package');
-  const { translatedHtml, translating, error: translateError, translate, reset } = useDescriptionTranslate();
+  const { translatedHtml, translatedSummary, translating, error: translateError, translate, reset } = useDescriptionTranslate();
   const displayHtml = translatedHtml || descriptionHtml;
+  const displaySummary = translatedSummary || item.summary;
   const descriptionMarkup = useMemo(() => ({ __html: displayHtml }), [displayHtml]);
   const descriptionRef = useRef<HTMLDivElement | null>(null);
 
@@ -57,7 +58,7 @@ export default function PackageContentSection({
 
       <section className={surface.cardSection}>
         <h2 className={sectionTitleClass}>{t('common:labels.summary')}</h2>
-        <p className="select-text text-base leading-7 text-slate-600 dark:text-slate-300">{item.summary || '?'}</p>
+        <p className="select-text text-base leading-7 text-slate-600 dark:text-slate-300">{displaySummary || '?'}</p>
         {item.deprecation ? (
           <>
             <h3 className="text-sm font-bold text-yellow-600 dark:text-yellow-300 mt-4 mb-2 justify-center">
@@ -86,7 +87,7 @@ export default function PackageContentSection({
               type="button"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={translating || descriptionLoading}
-              onClick={() => (translatedHtml ? reset() : translate(rawMarkdown, markdownBaseUrl))}
+              onClick={() => (translatedHtml ? reset() : translate(rawMarkdown, item.summary, markdownBaseUrl))}
             >
               <Languages className="w-4 h-4" />
               {translating ? t('translating', '翻译中...') : translatedHtml ? t('showOriginal', '显示原文') : t('translate', '翻译')}

@@ -193,7 +193,7 @@ export default function RegisterDescriptionSection({
                   onClick={() =>
                     translatedHtml
                       ? resetTranslate()
-                      : translate(packageForm.descriptionText)
+                      : translate(packageForm.descriptionText, packageForm.summary)
                   }
                 >
                   <Languages className="w-4 h-4" />
